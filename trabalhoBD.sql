@@ -2,6 +2,7 @@
 	CREATE TABLE usuario(
 		cpf varchar(14) PRIMARY KEY
 			CONSTRAINT formato_cpf CHECK (cpf LIKE '___.___.___-__'),
+		nome varchar(150) NOT NULL, 
 		email varchar(100) NOT NULL,
 			CONSTRAINT formato_email CHECK (email LIKE '%@%'),
 		data_nasc date NOT NULL,
@@ -164,22 +165,22 @@
 
 -- USUÁRIOS
 		--usuário sem especializações
-	INSERT INTO usuario(cpf, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('111.111.111-11', 'eu@eu.eu', '1992-12-04', 123456, 'usp', 'quem se define se 	limita sdv', 0, false, 0);
-	INSERT INTO usuario(cpf, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('211.111.111-11', 'vc@eu.eu', '1992-12-04', 123456, 'usp', 'slk tio', 0, false, 0);
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('111.111.111-11', 'João', 'eu@eu.eu', '1992-12-04', 123456, 'usp', 'quem se define se 	limita sdv', 0, false, 0);
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('211.111.111-11', 'Ariel', 'vc@eu.eu', '1992-12-04', 123456, 'usp', 'slk tio', 0, false, 0);
 
 		--revisor
-	INSERT INTO usuario(cpf, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('321.111.111-11', 'oi@eu.eu', '1982-11-04', 123456, 'unesp', 'bem chato', 0, false, 0);
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('321.111.111-11', 'Carlos', 'oi@eu.eu', '1982-11-04', 123456, 'unesp', 'bem chato', 0, false, 0);
 
 		--editor
-	INSERT INTO usuario(cpf, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('111.333.111-11', 'nois@eu.eu', '1992-08-08', 123456, '', 'só nos compiuter', 0, false, 0);
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('111.333.111-11', 'Maria', 'nois@eu.eu', '1992-08-08', 123456, '', 'só nos compiuter', 0, false, 0);
 
 		--administrador
-	INSERT INTO usuario(cpf, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('144.333.111-11', 'nois@eu.nois', '1992-05-08', 123456, '', 'sei administrar bolo e revista e acabou meu bolo, então', 0, false, 0);
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('144.333.111-11', 'Ângela', 'nois@eu.nois', '1992-05-08', 123456, '', 'sei administrar bolo e revista e acabou meu bolo, então', 0, false, 0);
 
 --SEGUE
 	INSERT INTO segue(usuario, seguido)
