@@ -187,6 +187,11 @@
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
 		VALUES('144.333.111-11', 'Ângela', 'nois@eu.nois', '1992-05-08', 123456, '', 'sei administrar bolo e revista e acabou meu bolo, então', 0, false, 0);
 
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('554.333.111-11', 'Carlos', 'car@los.nois', '1972-05-08', 123456, '', 'admin ai de mim', 0, false, 0);
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('700.333.111-11', 'Neusa', 'neu@sa.nois', '1982-02-18', 123456, 'puc', 'era isso ou fazer flogaum', 0, false, 0);
+
 --SEGUE
 	INSERT INTO segue(usuario, seguido)
 		VALUES('211.111.111-11', '111.111.111-11');
@@ -244,6 +249,8 @@
 		VALUES (1348, 'cienciaehjoia.com', '2017-12-06', 'minhascapas/capashow', 'Passado 1', 1);
 	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
 		VALUES (1448, 'revistadaboa.com', '2015-11-08', 'minhascapas/capashow', 'Passado 2', 1);
+	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
+		VALUES (1002, 'bomdemais.com', '2015-11-09', 'minhascapas/capashow', 'Passado 3', 1);
 	
 	--volumes futuros
 	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
@@ -262,6 +269,11 @@
 --ADMINISTRA
 	INSERT INTO administra (usuario, revista)
 		VALUES ('144.333.111-11', 'revistadaboa.com');
+	INSERT INTO administra (usuario, revista)
+		VALUES('554.333.111-11', 'bomdemais.com');
+	INSERT INTO administra (usuario, revista)
+		VALUES('700.333.111-11', 'cienciaehjoia.com');
+
 
 --ARTIGO_PROTOTIPO
 		--aceitos e publicados
@@ -275,9 +287,23 @@
 	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
 		VALUES(3579, '321.111.111-11', 'Passado 2', 'seustextos/passadopassado', 'biologia', '2019-07-14');
 
+		--artigos sobre computacao:
+			--programado para agosto desse ano:
+	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(3584, '211.111.111-11', 'artigoComputação Agosto', 'seustextos/compagosto', 'computacao', '2020-08-14');
+			
+			--publicado no passado:
+	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(3585, '321.111.111-11', 'artigoComputação Passado 1', 'seustextos/passadocomp', 'computacao', '2019-07-14');
+			INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(3586, '211.111.111-11', 'artigoComputação Passado 2', 'seustextos/passadocomp2', 'computacao', '2019-04-14');
+	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(3587, '321.111.111-11', 'artigoComputação Passado 3', 'seustextos/passadocomp', 'computacao', '2017-08-14');
+
 		--não aceitos
 	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
 		VALUES(3553, '321.111.111-11', 'Protótipo tenso', 'meustextos/textaotenso', 'hmmmmmm', '2020-07-14');
+
 		--aceitos no futuro ou passado e programados para serem publicados no futuro
 	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
 		VALUES(3753, '321.111.111-11', 'artigoFuturo 1', 'meustextos/textaos', 'biologia', '2020-11-14');
@@ -298,9 +324,18 @@
 			VALUES (3552, '2020-11-06', 1248);
 
 	INSERT INTO artigo (id, data_publicacao, id_volume)
-			VALUES (3559, '2017-12-06', 1348);
+			VALUES (3587, '2017-12-06', 1348);
 	INSERT INTO artigo (id, data_publicacao, id_volume)
 			VALUES (3579, '2015-11-08', 1448);
+
+		--artigos de computação para Q2
+			-- programado para agosto que invalida Q2
+	INSERT INTO artigo (id, data_publicacao, id_volume)
+			VALUES (3584, '2020-08-22', 1448);
+			--publicados anteriormente
+	INSERT INTO artigo (id, data_publicacao, id_volume)
+			VALUES (3587, '2017-08-22', 1448);
+
 
 		--programados para publicação futura
 	INSERT INTO artigo (id, data_publicacao, id_volume)
@@ -315,6 +350,7 @@
 				VALUES (9583, '2021-11-06', 1878);
 		INSERT INTO artigo (id, data_publicacao, id_volume)
 				VALUES (9593, '2021-12-07', 1878);
+
 
 
 
