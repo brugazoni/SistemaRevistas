@@ -170,6 +170,11 @@
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
 		VALUES('211.111.111-11', 'Ariel', 'vc@eu.eu', '1992-12-04', 123456, 'usp', 'slk tio', 0, false, 0);
 
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('211.222.111-11', 'Joana', 'jo@ana.eu', '1993-12-04', 123456, 'unicamps', 'leia o livro', 0, false, 0);
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('211.333.111-11', 'Salomão', 'salo@mao.vc', '1999-12-08', 123456, '', 'lendo o livro', 0, false, 0);
+
 		--revisor
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
 		VALUES('321.111.111-11', 'Carlos', 'oi@eu.eu', '1982-11-04', 123456, 'unesp', 'bem chato', 0, false, 0);
@@ -197,10 +202,35 @@
 --REVISTA
 	INSERT INTO revista (dominio, nome, n_inscritos, n_volumes)
 		VALUES('revistadaboa.com', 'revista da boa', 0, 0);
+	
+	INSERT INTO revista (dominio, nome, n_inscritos, n_volumes)
+		VALUES('revistashow.com', 'revista show', 0, 0);
+	INSERT INTO revista (dominio, nome, n_inscritos, n_volumes)
+		VALUES('bomdemais.com', 'bom demais', 0, 0);
+	INSERT INTO revista (dominio, nome, n_inscritos, n_volumes)
+		VALUES('cienciaehjoia.com', 'ciência é joia', 0, 0);
+	INSERT INTO revista (dominio, nome, n_inscritos, n_volumes)
+		VALUES('opiniaoboa.com', 'revista opinada', 0, 0);
 
 --ASSINA
+	--joão assina:
 	INSERT INTO assina(usuario, revista)
-		VALUES('111.111.111-11', 'revistadaboa.com');
+		VALUES('111.111.111-11', 'revistashow.com');
+
+		--joana assina:
+	INSERT INTO assina(usuario, revista)
+		VALUES('211.222.111-11', 'revistadaboa.com');
+	INSERT INTO assina(usuario, revista)
+		VALUES('211.222.111-11', 'cienciaehjoia.com');
+
+		--salomão assina:
+	INSERT INTO assina(usuario, revista)
+		VALUES('211.333.111-11', 'revistadaboa.com');
+	INSERT INTO assina(usuario, revista)
+		VALUES('211.333.111-11', 'bomdemais.com');
+	INSERT INTO assina(usuario, revista)
+		VALUES('211.333.111-11', 'opiniaoboa.com');
+
 
 --EDICAO
 	INSERT INTO edicao(editor, revista)
@@ -208,7 +238,22 @@
 
 --VOLUME
 	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
-		VALUES (1248, 'revistadaboa.com', 2020-07-14, 'minhascapas/capashow', 'Será que eu passo em BD? E outras polêmicas', 0);
+		VALUES (1248, 'revistadaboa.com', '2020-07-14', 'minhascapas/capashow', 'Será que eu passo em BD? E outras polêmicas', 0);
+
+	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
+		VALUES (1348, 'cienciaehjoia.com', '2017-12-06', 'minhascapas/capashow', 'Passado 1', 1);
+	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
+		VALUES (1448, 'revistadaboa.com', '2015-11-08', 'minhascapas/capashow', 'Passado 2', 1);
+	
+	--volumes futuros
+	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
+		VALUES (1249, 'revistashow.com', '2021-08-14', 'minhascapas1/capashow1', 'Volume futuro 1', 1);
+	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
+		VALUES (1328, 'bomdemais.com', '2021-12-12', 'minhascapas2/capashow2', 'Volume futuro 2', 1);
+	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
+		VALUES (1118, 'cienciaehjoia.com', '2020-10-15', 'minhascapas3/capashow3', 'Volume futuro 3', 1);
+	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
+		VALUES (1878, 'opiniaoboa.com', '2021-11-06', 'minhascapas4/capashow4', 'Volume futuro 4', 1);
 
 --EDITORIAL
 	INSERT INTO editorial (volume, titulo, texto, imagem_editorial)
@@ -224,15 +269,54 @@
 		VALUES(3551, '211.111.111-11', '10 razões pra a gente passar em BD, você não vai acreditar na 6!', 'meustextos/textao', 'súplicas', '2020-07-14');
 	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
 		VALUES(3552, '321.111.111-11', 'Mais 10 razões pra a gente passar em BD, você não vai acreditar na 3!', 'meustextos/textao', 'súplicas', '2020-07-14');
+
 	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(3559, '321.111.111-11', 'Passado 1', 'seustextos/passado', 'historia', '2018-07-14');
+	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(3579, '321.111.111-11', 'Passado 2', 'seustextos/passadopassado', 'biologia', '2019-07-14');
+
 		--não aceitos
+	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
 		VALUES(3553, '321.111.111-11', 'Protótipo tenso', 'meustextos/textaotenso', 'hmmmmmm', '2020-07-14');
+		--aceitos no futuro ou passado e programados para serem publicados no futuro
+	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(3753, '321.111.111-11', 'artigoFuturo 1', 'meustextos/textaos', 'biologia', '2020-11-14');
+	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(3583, '321.111.111-11', 'artigoFuturo 2', 'meustextos/textaos', 'computacao', '2021-11-14');
+	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(9553, '321.111.111-11', 'artigoFuturo 3', 'meustextos/textaos', 'joguinho de tiro', '2020-12-15');
+	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(9583, '211.111.111-11', 'artigoFuturo 4', 'meustextos/texts', 'ciencia de dados', '2019-12-15');
+	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(9593, '211.111.111-11', 'artigoFuturo 5', 'meustextos/textei', 'historia', '2019-12-16');
+
 
 --ARTIGO
 	INSERT INTO artigo (id, data_publicacao, id_volume)
 			VALUES (3551, '2020-11-05', 1248);
 	INSERT INTO artigo (id, data_publicacao, id_volume)
 			VALUES (3552, '2020-11-06', 1248);
+
+	INSERT INTO artigo (id, data_publicacao, id_volume)
+			VALUES (3559, '2017-12-06', 1348);
+	INSERT INTO artigo (id, data_publicacao, id_volume)
+			VALUES (3579, '2015-11-08', 1448);
+
+		--programados para publicação futura
+	INSERT INTO artigo (id, data_publicacao, id_volume)
+			VALUES (3753, '2021-08-14', 1249);
+	INSERT INTO artigo (id, data_publicacao, id_volume)
+			VALUES (3583, '2021-12-12', 1328);
+	INSERT INTO artigo (id, data_publicacao, id_volume)
+			VALUES (9553, '2020-10-15', 1118);
+
+			-- futuro e mesmo volume (na opiniaoboa.com)
+		INSERT INTO artigo (id, data_publicacao, id_volume)
+				VALUES (9583, '2021-11-06', 1878);
+		INSERT INTO artigo (id, data_publicacao, id_volume)
+				VALUES (9593, '2021-12-07', 1878);
+
+
 
 --CITA
 	INSERT INTO cita (artigo, artigo_citado)
@@ -263,3 +347,8 @@
 --UTILIZA_ANEXO
 	INSERT INTO utiliza_anexo (anexo, artigo)
 			VALUES (654, 3551);
+
+----------------------------------------------------------------------------------------
+-- CONSULTAS
+
+
