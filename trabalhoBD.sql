@@ -351,4 +351,19 @@
 ----------------------------------------------------------------------------------------
 -- CONSULTAS
 
+--Q1:
+
+	SELECT (u.nome, r.dominio, r.nome, v.titulo, v.data, p.tema, p.titulo)
+		FROM usuario u
+		INNER JOIN assina a
+		ON u.cpf = a.usuario
+		INNER JOIN revista r
+		ON a.revista = r.dominio
+		INNER JOIN volume v
+		ON (v.revista = r.dominio) AND (v.data > current_date)
+		INNER JOIN artigo ar
+		ON (ar.id_volume = v.id_volume)
+		INNER JOIN artigo_prototipo p
+		ON (ar.id = p.id_artigo)
+		ORDER BY u.cpf;
 
