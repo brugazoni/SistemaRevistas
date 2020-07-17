@@ -11,11 +11,8 @@
 		instituicao varchar(100),
 		descricao varchar(1000),
 		n_avaliacoes integer DEFAULT 0
-			CONSTRAINT zero_avaliacoes CHECK (n_avaliacoes = 0),
 		deletado boolean DEFAULT false,
-			CONSTRAINT falso_deletado CHECK (deletado = false),
 		experiencia integer DEFAULT 0
-			CONSTRAINT zero_experiencia CHECK (experiencia = 0)
 	);
 
 	CREATE TABLE segue (
@@ -31,7 +28,6 @@
 		area2 varchar(100),
 		area3 varchar(100),
 		n_revisoes integer DEFAULT 0
-			CONSTRAINT zero_revisoes CHECK (n_revisoes = 0),
 		PRIMARY KEY (revisor)
 	);
 
@@ -42,7 +38,6 @@
 		especialidade_2 varchar(100),
 		especialidade_3 varchar(100),
 		n_edicoes integer DEFAULT 0
-			CONSTRAINT zero_revisoes CHECK (n_edicoes = 0),
 		PRIMARY KEY (editor)
 	);
 
@@ -50,10 +45,8 @@
 		dominio varchar(150) PRIMARY KEY
 		CONSTRAINT formato_dominio CHECK (dominio LIKE '%.com'),
 		nome varchar(100) NOT NULL,
-		n_inscritos integer DEFAULT 0
-			CONSTRAINT zero_inscritos CHECK (n_inscritos = 0),
+		n_inscritos integer DEFAULT 0,
 		n_volumes integer DEFAULT 0
-			CONSTRAINT zero_volumes CHECK (n_volumes = 0)
 	);
 
 	CREATE TABLE assina (
@@ -174,6 +167,14 @@
 		VALUES('211.222.111-11', 'Joana', 'jo@ana.eu', '1993-12-04', 123456, 'unicamps', 'leia o livro', 0, false, 0);
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
 		VALUES('211.333.111-11', 'Salomão', 'salo@mao.vc', '1999-12-08', 123456, '', 'lendo o livro', 0, false, 0);
+
+		--deletados
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('999.222.111-11', 'Sumiu', 'su@miu.eu', '1990-12-04', 123456, '', 'leia o livro', 0, true, 0);
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('888.222.111-11', 'Vazou', 'va@zou.eu', '1991-12-04', 123456, 'ufscar', 'leia o livro', 0, true, 0);
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('777.222.111-11', 'Cadê', 'ca@dê.eu', '1998-12-04', 123456, 'unesp', 'leia o livro', 0, true, 0);
 
 		--revisor
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
