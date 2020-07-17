@@ -252,6 +252,9 @@
 	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
 		VALUES (1002, 'bomdemais.com', '2015-11-09', 'minhascapas/capashow', 'Passado 3', 1);
 	
+	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
+		VALUES (1500, 'revistadaboa.com', '2017-08-22', 'minhascapas/capashow', 'Passado 4', 1);
+
 	--volumes futuros
 	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
 		VALUES (1249, 'revistashow.com', '2021-08-14', 'minhascapas1/capashow1', 'Volume futuro 1', 1);
@@ -325,8 +328,13 @@
 
 	INSERT INTO artigo (id, data_publicacao, id_volume)
 			VALUES (3587, '2017-12-06', 1348);
+
 	INSERT INTO artigo (id, data_publicacao, id_volume)
 			VALUES (3579, '2015-11-08', 1448);
+
+	INSERT INTO artigo (id, data_publicacao, id_volume)
+			VALUES (3586, '2015-11-09', 1002);
+
 
 		--artigos de computação para Q2
 			-- programado para agosto que invalida Q2
@@ -368,6 +376,30 @@
 	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
 		VALUES('321.111.111-11', 3553, false, 'minhasrevisoes/tabemruim.txt');
 
+	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
+		VALUES('321.111.111-11', 3559, true, 'minhasrevisoes/tabom.txt');
+	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
+		VALUES('321.111.111-11', 3579, true, 'minhasrevisoes/tabom.txt');
+
+	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
+		VALUES('321.111.111-11',3753, true, 'minhasrevisoes/tabom.txt');
+	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
+		VALUES('321.111.111-11',3583 , true, 'minhasrevisoes/tabom.txt');
+	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
+		VALUES('321.111.111-11',9553 , true, 'minhasrevisoes/tabom.txt');
+	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
+		VALUES('321.111.111-11',9583 , true, 'minhasrevisoes/tabom.txt');
+	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
+		VALUES('321.111.111-11',9593 , true, 'minhasrevisoes/tabom.txt');
+	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
+		VALUES('321.111.111-11',3587 , true, 'minhasrevisoes/tabom.txt');
+	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
+		VALUES('321.111.111-11',3586 , true, 'minhasrevisoes/tabom.txt');
+	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
+		VALUES('321.111.111-11',3584 , true, 'minhasrevisoes/tabom.txt');
+
+
+
 --AVALIACAO_ARTIGO
 	INSERT INTO avaliacao_artigo (id_artigo, usuario, datahora, nota, comentario)
 		VALUES (3551, '111.111.111-11', current_timestamp, 9.5, '/comentarios/parabensmerecido.txt');
@@ -403,3 +435,58 @@
 		ON (ar.id = p.id_artigo)
 		ORDER BY u.cpf;
 
+--Q2:
+
+-- Primeiro select: revistas que já publicaram algo relacionado a computação
+SELECT (r.dominio, u.cpf, u.nome, u.email, a.data_publicacao, p.tema)
+	FROM artigo_prototipo p
+	INNER JOIN artigo a
+	ON ((p.id_artigo = a.id) 
+		AND (p.tema LIKE 'computacao')
+	    AND (a.data_publicacao < current_date))
+	INNER JOIN volume v
+	ON (a.id_volume = v.id_volume)
+	INNER JOIN revista r
+	ON (v.revista = r.dominio)
+	INNER JOIN administra ad
+	ON (ad.revista = r.dominio)
+	INNER JOIN usuario u
+	ON (ad.usuario = u.cpf)
+	
+	EXCEPT -- Operação de subtração de conjuntos
+
+-- Segundo select: revistas que vão publicar artigos de computação em agosto desse ano
+SELECT (r.dominio, u.cpf, u.nome, u.email, a.data_publicacao, p.tema)
+	FROM artigo_prototipo p
+	INNER JOIN artigo a
+	ON ((p.id_artigo = a.id) 
+		AND (p.tema LIKE 'computacao')
+	    AND (array[EXTRACT(month from a.data_publicacao), EXTRACT(year from a.data_publicacao)]
+ 			= array[8, EXTRACT(year from current_date)]))
+	INNER JOIN volume v
+	ON (a.id_volume = v.id_volume)
+	INNER JOIN revista r
+	ON (v.revista = r.dominio)
+	INNER JOIN administra ad
+	ON (ad.revista = r.dominio)
+	INNER JOIN usuario u
+	ON (ad.usuario = u.cpf)
+
+--Q3:
+
+SELECT a.id, a.data_publicacao, r.dominio, p.submissor, p.titulo, p.texto, p.tema, u1.nome, u2.nome as revisor
+	FROM artigo a
+	INNER JOIN artigo_prototipo p
+	ON a.id = p.id_artigo
+	INNER JOIN volume v
+	ON a.id_volume = v.id_volume
+	INNER JOIN revista r
+	ON r.dominio = v.revista
+	
+	INNER JOIN usuario u1
+	ON u1.cpf = p.submissor
+	
+	INNER JOIN revisa rev
+	ON rev.id_artigo = a.id
+	INNER JOIN usuario u2
+	ON rev.revisor = u2.cpf
