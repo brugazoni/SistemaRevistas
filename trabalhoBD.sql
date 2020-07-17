@@ -474,7 +474,7 @@ SELECT (r.dominio, u.cpf, u.nome, u.email, a.data_publicacao, p.tema)
 
 --Q3:
 
-SELECT a.id, a.data_publicacao, r.dominio, p.submissor, p.titulo, p.texto, p.tema, u1.nome, u2.nome as revisor
+SELECT a.id, a.data_publicacao, r.dominio, p.submissor, p.titulo, p.texto, p.tema, u1.nome as submissor, u2.nome as revisor
 	FROM artigo a
 	INNER JOIN artigo_prototipo p
 	ON a.id = p.id_artigo
