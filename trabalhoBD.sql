@@ -464,10 +464,10 @@
 		ON (ar.id = p.id_artigo)
 		ORDER BY u.cpf;
 
---Q2: NÃO ESTÁ FUNCIONANDO AINDA!
+--Q2: FUNCIONANDO!
 
 -- Primeiro select: revistas que já publicaram algo relacionado a computação
-SELECT (r.dominio, u.cpf, u.nome, u.email, a.data_publicacao, p.tema)
+SELECT r.dominio, u.cpf, u.nome, u.email, p.tema
 	FROM artigo_prototipo p
 	INNER JOIN artigo a
 	ON ((p.id_artigo = a.id) 
@@ -477,29 +477,28 @@ SELECT (r.dominio, u.cpf, u.nome, u.email, a.data_publicacao, p.tema)
 	ON (a.id_volume = v.id_volume)
 	INNER JOIN revista r
 	ON (v.revista = r.dominio)
+	and r.dominio not in (
+		-- Segundo select: revistas que vão publicar artigos de computação em agosto desse ano
+			SELECT r.dominio
+			FROM artigo_prototipo p
+			INNER JOIN artigo a
+			ON ((p.id_artigo = a.id) 
+				AND (p.tema LIKE 'computacao')
+				AND (array[EXTRACT(month from a.data_publicacao), EXTRACT(year from a.data_publicacao)]
+					= array[8, EXTRACT(year from current_date)]))
+			INNER JOIN volume v
+			ON (a.id_volume = v.id_volume)
+			INNER JOIN revista r
+			ON (v.revista = r.dominio)
+			INNER JOIN administra ad
+			ON (ad.revista = r.dominio)
+			INNER JOIN usuario u
+			ON (ad.usuario = u.cpf)
+			)
 	INNER JOIN administra ad
 	ON (ad.revista = r.dominio)
 	INNER JOIN usuario u
 	ON (ad.usuario = u.cpf)
-	
-	EXCEPT -- Operação de subtração de conjuntos
-
--- Segundo select: revistas que vão publicar artigos de computação em agosto desse ano
-SELECT (r.dominio, u.cpf, u.nome, u.email, a.data_publicacao, p.tema)
-	FROM artigo_prototipo p
-	INNER JOIN artigo a
-	ON ((p.id_artigo = a.id) 
-		AND (p.tema LIKE 'computacao')
-	    AND (array[EXTRACT(month from a.data_publicacao), EXTRACT(year from a.data_publicacao)]
- 			= array[8, EXTRACT(year from current_date)]))
-	INNER JOIN volume v
-	ON (a.id_volume = v.id_volume)
-	INNER JOIN revista r
-	ON (v.revista = r.dominio)
-	INNER JOIN administra ad
-	ON (ad.revista = r.dominio)
-	INNER JOIN usuario u
-	ON (ad.usuario = u.cpf);
 
 --Q3:
 
