@@ -490,3 +490,5 @@ SELECT a.id, a.data_publicacao, r.dominio, p.submissor, p.titulo, p.texto, p.tem
 	ON rev.id_artigo = a.id
 	INNER JOIN usuario u2
 	ON rev.revisor = u2.cpf
+
+	ORDER BY a.data_publicacao ASC;
