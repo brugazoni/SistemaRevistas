@@ -175,6 +175,8 @@
 		VALUES('888.222.111-11', 'Vazou', 'va@zou.eu', '1991-12-04', 123456, 'ufscar', 'leia o livro', 0, true, 0);
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
 		VALUES('777.222.111-11', 'Cadê', 'ca@dê.eu', '1998-12-04', 123456, 'unesp', 'leia o livro', 0, true, 0);
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('666.222.111-11', 'Feznada', 'fez@na.da', '1998-12-04', 123456, 'unesp', 'leia o livro', 0, true, 0);
 
 		--revisor
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
@@ -320,6 +322,10 @@
 	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
 		VALUES(9593, '211.111.111-11', 'artigoFuturo 5', 'meustextos/textei', 'historia', '2019-12-16');
 
+		--de usuário deletado
+	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(8888, '777.222.111-11', 'Meu escritor sumiu', 'meustextos/textado', 'historia', '2015-12-16');
+
 
 --ARTIGO
 	INSERT INTO artigo (id, data_publicacao, id_volume)
@@ -336,6 +342,10 @@
 	INSERT INTO artigo (id, data_publicacao, id_volume)
 			VALUES (3586, '2015-11-09', 1002);
 
+
+		--de usuário deletado
+	INSERT INTO artigo (id, data_publicacao, id_volume)
+			VALUES (8888, '2017-12-06', 1348);
 
 		--artigos de computação para Q2
 			-- programado para agosto que invalida Q2
@@ -360,12 +370,12 @@
 		INSERT INTO artigo (id, data_publicacao, id_volume)
 				VALUES (9593, '2021-12-07', 1878);
 
-
-
-
 --CITA
 	INSERT INTO cita (artigo, artigo_citado)
 			VALUES (3551, 3552);
+		--cita artigo de usuário deletado
+	INSERT INTO cita (artigo, artigo_citado)
+			VALUES (3584, 8888);
 
 --REVISA
 		--aceitos
@@ -373,10 +383,6 @@
 		VALUES('321.111.111-11', 3551, true, 'minhasrevisoes/tabembom.txt');
 	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
 		VALUES('321.111.111-11', 3552, true, 'minhasrevisoes/muitobom.txt');
-		--não aceitos
-	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
-		VALUES('321.111.111-11', 3553, false, 'minhasrevisoes/tabemruim.txt');
-
 	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
 		VALUES('321.111.111-11', 3559, true, 'minhasrevisoes/tabom.txt');
 	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
@@ -399,7 +405,9 @@
 	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
 		VALUES('321.111.111-11',3584 , true, 'minhasrevisoes/tabom.txt');
 
-
+		--não aceito
+	INSERT INTO revisa (revisor, id_artigo, aprovacao, revisao)
+		VALUES('321.111.111-11', 3553, false, 'minhasrevisoes/tabemruim.txt');
 
 --AVALIACAO_ARTIGO
 	INSERT INTO avaliacao_artigo (id_artigo, usuario, datahora, nota, comentario)
@@ -409,13 +417,33 @@
 	INSERT INTO anexo (id, cabecalho, visibilidade, data, dono)
 		VALUES (654, '/cabecalholalala', 0, '2020-07-14', '111.111.111-11');
 
+		-- anexos de usuários deletadoss
+	INSERT INTO anexo (id, cabecalho, visibilidade, data, dono)
+		VALUES (10, '/cabecalholalala', 0, '2020-07-14', '999.222.111-11');
+	INSERT INTO anexo (id, cabecalho, visibilidade, data, dono)
+		VALUES (11, '/cabecalholalala', 0, '2020-07-14', '888.222.111-11');
+
+
 --ARQUIVOS_ANEXO
 	INSERT INTO arquivos_anexo (anexo, nome, arquivo)
 		VALUES (654, 'arquivo_que_comprova_que_eu_devo_passar_em_bd.jpg', '/fakenews/einsteinbombouBDeagora?');
 
+		-- arquivos de anexos de usuários deletados
+	INSERT INTO arquivos_anexo (anexo, nome, arquivo)
+		VALUES (10, 'anexo do sumido', '/dados');
+	INSERT INTO arquivos_anexo (anexo, nome, arquivo)
+		VALUES (11, 'anexo do deletado', '/coisas');
+
 --UTILIZA_ANEXO
 	INSERT INTO utiliza_anexo (anexo, artigo)
 			VALUES (654, 3551);
+
+		--artigos que usam anexos de usuários deletados
+	INSERT INTO utiliza_anexo (anexo, artigo)
+			VALUES (10, 3753);
+	INSERT INTO utiliza_anexo (anexo, artigo)
+			VALUES (11, 3583);
+
 
 ----------------------------------------------------------------------------------------
 -- CONSULTAS
@@ -436,7 +464,7 @@
 		ON (ar.id = p.id_artigo)
 		ORDER BY u.cpf;
 
---Q2:
+--Q2: NÃO ESTÁ FUNCIONANDO AINDA!
 
 -- Primeiro select: revistas que já publicaram algo relacionado a computação
 SELECT (r.dominio, u.cpf, u.nome, u.email, a.data_publicacao, p.tema)
@@ -471,7 +499,7 @@ SELECT (r.dominio, u.cpf, u.nome, u.email, a.data_publicacao, p.tema)
 	INNER JOIN administra ad
 	ON (ad.revista = r.dominio)
 	INNER JOIN usuario u
-	ON (ad.usuario = u.cpf)
+	ON (ad.usuario = u.cpf);
 
 --Q3:
 
@@ -493,3 +521,30 @@ SELECT a.id, a.data_publicacao, r.dominio, p.submissor, p.titulo, p.texto, p.tem
 	ON rev.revisor = u2.cpf
 
 	ORDER BY a.data_publicacao ASC;
+
+--Q4:
+
+SELECT u.nome, u.cpf, u.email, arq.nome as contribuição, p.titulo as onde_usaram
+
+	FROM usuario u
+	INNER JOIN anexo an
+	ON (u.cpf = an.dono AND u.deletado = true)
+	INNER JOIN arquivos_anexo arq
+	ON an.id = arq.anexo
+	INNER JOIN utiliza_anexo ut
+	ON ut.anexo = an.id
+	INNER JOIN artigo art
+	ON ut.artigo = art.id
+	INNER JOIN artigo_prototipo p
+	ON art.id = p.id_artigo
+
+UNION
+
+	SELECT u.nome, u.cpf, u.email, p_citado.titulo as contribuição, p_cita.titulo as onde_usaram
+	FROM usuario u
+	INNER JOIN artigo_prototipo p_citado
+	ON (u.cpf = p_citado.submissor AND u.deletado = true)
+	INNER JOIN cita c
+	ON c.artigo_citado = p_citado.id_artigo
+	INNER JOIN artigo_prototipo p_cita
+	ON c.artigo = p_cita.id_artigo
