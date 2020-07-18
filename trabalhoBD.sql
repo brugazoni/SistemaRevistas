@@ -195,6 +195,16 @@
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
 		VALUES('700.333.111-11', 'Neusa', 'neu@sa.nois', '1982-02-18', 123456, 'puc', 'era isso ou fazer flogaum', 0, false, 0);
 
+			--bioagradáveis
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('100.200.300-40', 'Bio', 'bio@logo.nois', '1988-02-18', 123456, 'puc', 'fitoterapeuta', 0, false, 0);
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('110.200.300-40', 'Leite', 'lo@gia.nois', '1978-02-18', 123456, 'unicamps', 'etnobotânico', 0, false, 0);
+		
+			--esse não vai ter artigo publicado e não pode aparecer na Q5
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('220.200.300-40', 'Ólogo', 'o@logo.nois', '1999-03-18', 123456, 'ufscar', 'micologista', 0, false, 0);
+
 --SEGUE
 	INSERT INTO segue(usuario, seguido)
 		VALUES('211.111.111-11', '111.111.111-11');
