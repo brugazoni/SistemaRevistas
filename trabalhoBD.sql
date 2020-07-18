@@ -547,3 +547,28 @@ UNION
 	ON c.artigo_citado = p_citado.id_artigo
 	INNER JOIN artigo_prototipo p_cita
 	ON c.artigo = p_cita.id_artigo
+
+
+
+-- Q6
+select u.cpf, u.nome, u.data_nasc, u.instituicao
+	from usuario u
+	where 
+	u.experiencia >= 50
+	and
+	u.n_avaliacoes >= 20
+	and u.deletado = false
+	and u.cpf not in(
+	select a.usuario from administra a 
+		union
+	select e.editor from editor e 
+		union
+	select r.revisor from revisor r
+)
+
+
+
+-- Q10
+
+
+
