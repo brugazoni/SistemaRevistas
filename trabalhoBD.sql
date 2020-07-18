@@ -61,6 +61,7 @@
 		PRIMARY KEY (editor, revista)
 	);
 
+
 	CREATE TABLE volume (
 		id_volume integer PRIMARY KEY,
 		revista varchar(150) REFERENCES revista(dominio) ON DELETE CASCADE,
@@ -212,10 +213,33 @@
 --REVISOR
 	INSERT INTO revisor(revisor, certificacao, area1, area2, area3, n_revisoes)
 		VALUES('321.111.111-11', 'certificado sim', 'data science', 'catar coquinho', '', '0');
+	
+		--bioagradáveis
+	INSERT INTO revisor(revisor, certificacao, area1, area2, area3, n_revisoes)
+		VALUES('100.200.300-40', 'certificado sim', 'biologia', 'catar coquinho', '', '0');
+	INSERT INTO revisor(revisor, certificacao, area1, area2, area3, n_revisoes)
+		VALUES('110.200.300-40', 'certificado sim', 'data science', 'biologia', '', '0');
+	INSERT INTO revisor(revisor, certificacao, area1, area2, area3, n_revisoes)
+		VALUES('220.200.300-40', 'certificado sim', 'data science', '', 'biologia', '0');
 
 --EDITOR
 	INSERT INTO editor (editor, certificacao, especialidade_1, especialidade_2, especialidade_3, n_edicoes)
 		VALUES ('111.333.111-11', 'editor certificado', 'compiuters', '', '', 0);
+
+		--bioagradáveis
+	INSERT INTO editor (editor, certificacao, especialidade_1, especialidade_2, especialidade_3, n_edicoes)
+		VALUES ('100.200.300-40', 'editor certificado', 'biologia', '', '', 0);
+	INSERT INTO editor (editor, certificacao, especialidade_1, especialidade_2, especialidade_3, n_edicoes)
+		VALUES ('110.200.300-40', 'editor certificado', 'data science', 'biologia', '', 0);
+	INSERT INTO editor (editor, certificacao, especialidade_1, especialidade_2, especialidade_3, n_edicoes)
+		VALUES ('220.200.300-40', 'editor certificado', 'data science', '', 'biologia', 0);
+
+--EDICAO
+
+	INSERT INTO edicao (editor, revista)
+		VALUES ('100.200.300-40', 'revistashow.com');
+	INSERT INTO edicao (editor, revista)
+		VALUES ('220.200.300-40', 'cienciaehjoia.com');
 
 --REVISTA
 	INSERT INTO revista (dominio, nome, n_inscritos, n_volumes)
@@ -290,6 +314,8 @@
 	INSERT INTO administra (usuario, revista)
 		VALUES('700.333.111-11', 'cienciaehjoia.com');
 
+	INSERT INTO administra (usuario, revista)
+		VALUES('110.200.300-40', 'revistadaboa.com');
 
 --ARTIGO_PROTOTIPO
 		--aceitos e publicados
