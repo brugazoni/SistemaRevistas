@@ -585,6 +585,78 @@ UNION
 	ON c.artigo = p_cita.id_artigo
 
 
+--Q5
+
+	--Primeira query: trabalha como administrador
+SELECT u.nome, u.cpf, u.email
+	FROM usuario u
+	INNER JOIN editor ed
+	ON (ed.editor = u.cpf 
+		AND 
+	   		((ed.especialidade_1 LIKE 'biologia')
+			OR
+			(ed.especialidade_2 LIKE 'biologia')
+			OR
+			(ed.especialidade_3 LIKE 'biologia')))
+	
+	INNER JOIN revisor rev
+	ON (rev.revisor = u.cpf
+		AND 
+	   		((rev.area1 LIKE 'biologia')
+			OR
+			(rev.area2 LIKE 'biologia')
+			OR
+			(rev.area3 LIKE 'biologia')))
+	
+	INNER JOIN administra ad
+	ON (u.cpf = ad.usuario)
+	INNER JOIN revista r
+	ON (ad.revista = r.dominio)
+	AND r.dominio in (
+		SELECT r.dominio
+			FROM artigo_prototipo p
+			INNER JOIN artigo a
+			ON (p.id_artigo = a.id AND p.tema LIKE 'biologia')
+			INNER JOIN volume v
+			ON (a.id_volume = v.id_volume)
+			INNER JOIN revista r
+			ON (v.revista = r.dominio))
+
+UNION
+	--Segunda query: trabalha como editor
+SELECT u.nome, u.cpf, u.email
+	FROM usuario u
+	INNER JOIN editor ed
+	ON (ed.editor = u.cpf 
+		AND 
+	   		((ed.especialidade_1 LIKE 'biologia')
+			OR
+			(ed.especialidade_2 LIKE 'biologia')
+			OR
+			(ed.especialidade_3 LIKE 'biologia')))
+	
+	INNER JOIN revisor rev
+	ON (rev.revisor = u.cpf
+		AND 
+	   		((rev.area1 LIKE 'biologia')
+			OR
+			(rev.area2 LIKE 'biologia')
+			OR
+			(rev.area3 LIKE 'biologia')))
+	
+	INNER JOIN edicao edita
+	ON (u.cpf = edita.editor)
+	INNER JOIN revista r
+	ON (edita.revista = r.dominio)
+	AND r.dominio in (
+		SELECT r.dominio
+			FROM artigo_prototipo p
+			INNER JOIN artigo a
+			ON (p.id_artigo = a.id AND p.tema LIKE 'biologia')
+			INNER JOIN volume v
+			ON (a.id_volume = v.id_volume)
+			INNER JOIN revista r
+			ON (v.revista = r.dominio));
 
 -- Q6
 select u.cpf, u.nome, u.data_nasc, u.instituicao
