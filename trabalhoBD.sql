@@ -678,5 +678,24 @@ select u.cpf, u.nome, u.data_nasc, u.instituicao
 
 -- Q10
 
+--
+	---------------------
+	--1 - SELECIONA TODAS AS REVISTA QUE JÁ PUBLICARAM AO MENOS UMA IMAGEM NO EDITORIAL. Ou seja,
+	--pelo menos um dos editoriais deve conter uma imagem não nula ou não vazia. (FEITO)
+	--Depois eu tenho que pegar o complementar disso pra conseguir todas as revistas que nunca publicaram nenhuma imagem
+	--
+	--2 - depois eu ainda tenho que pegar as revistas que não publicaram um editorial com imagem nos últimos 6 meses e dar um
+	-- union com o resultado do (1)
+
+	select r.dominio
+	from revista r
+	inner join volume v
+	on (r.dominio = v.revista)
+	inner join editorial e
+	on (v.id_volume = e.volume)
+	group by r.dominio
+	having count(case 
+				 when e.imagem_editorial is not null and e.imagem_editorial <> ''
+					then 1 end)>0 
 
 
