@@ -93,6 +93,8 @@
 		texto varchar(200) NOT NULL,
 		tema varchar(200) NOT NULL,
 		data_submissao date NOT NULL
+
+		UNIQUE (submissor, data_submissao, titulo)
 	);
 
 	CREATE TABLE artigo (
@@ -214,7 +216,9 @@
 
 --REVISOR
 	INSERT INTO revisor(revisor, certificacao, area1, area2, area3, n_revisoes)
-		VALUES('321.111.111-11', 'certificado sim', 'data science', 'catar coquinho', '', '0');
+		VALUES('321.111.111-11', 'certificado sim', 'data science', 'catar coquinho', '', '13');
+	INSERT INTO revisor(revisor, certificacao, area1, area2, area3, n_revisoes)
+		VALUES('111.111.111-11', 'certificado sim', 'química', 'história', 'geografia', '1');
 	
 		--bioagradáveis
 	INSERT INTO revisor(revisor, certificacao, area1, area2, area3, n_revisoes)
@@ -698,22 +702,24 @@ select u.cpf, u.nome, u.data_nasc, u.instituicao
 )
 
 --Q7
-
+-- Query baseada na operação de divisão entre conjuntos: partimos da ideia de que
+-- representar a divisão é a mesma coisa que excluir todos os elementos que não
+-- assinam revistas onde o Benedito trabalha
 
 SELECT u.cpf, u.email
 FROM usuario u
 WHERE NOT EXISTS
-	((SELECT r.dominio
+	(( -- Primeira subquery: seleciona todas as revistas editadas pelo Benedito
+	  SELECT r.dominio
 	  FROM revista r
 	  INNER JOIN edicao ed
 	  ON (r.dominio = ed.revista AND ed.editor = '999.333.111-11'))
 
 	  EXCEPT
-
-	  	(SELECT ass.revista
+	  	( -- Segunda subquery: seleciona todos os usuários que assinam revistas
+	  	 SELECT ass.revista
 	  	 FROM assina ass
 	  	 WHERE u.cpf = ass.usuario))
-
 
 
 -- Q10
