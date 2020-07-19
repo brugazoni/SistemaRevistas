@@ -248,7 +248,6 @@
 --REVISTA
 	INSERT INTO revista (dominio, nome, n_inscritos, n_volumes)
 		VALUES('revistadaboa.com', 'revista da boa', 0, 0);
-	
 	INSERT INTO revista (dominio, nome, n_inscritos, n_volumes)
 		VALUES('revistashow.com', 'revista show', 0, 0);
 	INSERT INTO revista (dominio, nome, n_inscritos, n_volumes)
@@ -257,6 +256,8 @@
 		VALUES('cienciaehjoia.com', 'ciência é joia', 0, 0);
 	INSERT INTO revista (dominio, nome, n_inscritos, n_volumes)
 		VALUES('opiniaoboa.com', 'revista opinada', 0, 0);
+	INSERT INTO revista (dominio, nome, n_inscritos, n_volumes)
+		VALUES('euamobd.com', 'eu <3 bd', 0, 0);
 
 --EDICAO
 
@@ -318,7 +319,11 @@
 		VALUES (1002, 'bomdemais.com', '2015-11-09', 'minhascapas/capashow', 'Passado 3', 1);
 	
 	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
-		VALUES (1500, 'revistadaboa.com', '2017-08-22', 'minhascapas/capashow', 'Passado 4', 1);
+		VALUES (1500, 'revistadaboa.com', '2017-08-22', 'minhascapas/capashow', 'Passado 1', 1);
+	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
+		VALUES (1988, 'euamobd.com', '2020-07-24', 'minhascapas/capashow', 'Passado 1', 1);
+	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
+		VALUES (1989, 'euamobd.com', '2020-08-24', 'minhascapas/capashow', 'Passado 2', 1);
 
 	--volumes futuros
 	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
@@ -356,6 +361,14 @@
 		VALUES(3559, '321.111.111-11', 'Passado 1', 'seustextos/passado', 'historia', '2018-07-14');
 	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
 		VALUES(3579, '321.111.111-11', 'Passado 2', 'seustextos/passadopassado', 'biologia', '2019-07-14');
+
+	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(5000, '321.111.111-11', 'Passado 1', 'seustextos/passadopassado', 'computacao-quantica', '2020-06-23');
+
+	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(4576, '321.111.111-11', 'Passado 1', 'seustextos/passadopassado', 'computacao-quantica', '2020-07-24');
+	INSERT INTO artigo_prototipo(id_artigo, submissor, titulo, texto, tema, data_submissao)
+		VALUES(4577, '321.111.111-11', 'Passado 2', 'seustextos/passadopassado', 'computacao-quantica', '2020-08-24');
 
 		--artigos sobre computacao:
 			--programado para agosto desse ano:
@@ -405,6 +418,13 @@
 
 	INSERT INTO artigo (id, data_publicacao, id_volume)
 			VALUES (3586, '2015-11-09', 1002);
+	INSERT INTO artigo (id, data_publicacao, id_volume)
+			VALUES (4576, '2020-07-24', 1988);
+	INSERT INTO artigo (id, data_publicacao, id_volume)
+			VALUES (4577, '2020-08-24', 1989);
+	INSERT INTO artigo (id, data_publicacao, id_volume)
+		VALUES (5000, '2020-06-23', 1002);
+			
 
 
 		--de usuário deletado
@@ -721,7 +741,53 @@ WHERE NOT EXISTS
 	  	 SELECT ass.revista
 	  	 FROM assina ass
 	  	 WHERE u.cpf = ass.usuario))
+--Q8 
 
+-- Sugere revistas que um usuário ainda não conhece com base em suas avaliações de artigos.
+-- Identifique revistas que um usuário não assinou, administrou ou editou com volume lançado no mês atual, revista que não possui artigos que
+-- o usuario revisou ou submeteu (em suma, o usuráio no cãonhece a revista),
+-- e que tenham pelo menos um artigo com o mesmo tema de um artigo que
+-- este usuário avaliou com nota pelo menos 8. Mostre cpf, nome e email do usuário, nome da revista e tema do artigo.
+
+--considerando um usuario com o cpf 100.200.300-40:
+
+SELECT u.cpf, u.nome, u.email, r.dominio, p.tema
+FROM usuario u
+INNER JOIN revista r
+ON u.cpf LIKE '100.200.300-40' AND r.dominio NOT IN
+	(SELECT r2.dominio
+	FROM revista r2
+	INNER JOIN usuario u2
+	ON u2.cpf LIKE '100.200.300-40'
+	INNER JOIN assina ass
+	ON u2.cpf = ass.usuario AND r2.dominio = ass.revista
+	INNER JOIN administra adm
+	ON u2.cpf = adm.usuario AND r2.dominio = adm.revista
+	
+	INNER JOIN volume v2
+	ON (r2.dominio = v2.revista)
+	INNER JOIN artigo a2
+	ON a2.id_volume = v2.id_volume
+	INNER JOIN revisa rev
+	ON u2.cpf = rev.revisor AND rev.id_artigo = a2.id
+	INNER JOIN edicao ed
+	ON u2.cpf = ed.editor AND r2.dominio = ed.revista
+	INNER JOIN artigo_prototipo p2
+	ON a2.id = p2.id_artigo AND p2.submissor = u2.cpf
+	)
+INNER JOIN volume v
+ON (r.dominio = v.revista) AND (EXTRACT(MONTH FROM v.data) = EXTRACT(MONTH FROM current_date))
+INNER JOIN artigo a
+ON a.id_volume = v.id_volume
+INNER JOIN artigo_prototipo p
+ON p.id_artigo = a.id AND p.tema IN
+	(SELECT p2.tema
+	FROM artigo_prototipo p2
+	INNER JOIN usuario u3
+	ON u3.cpf LIKE '100.200.300-40'
+	INNER JOIN avaliacao_artigo av
+	ON p2.id_artigo = av.id_artigo AND av.usuario = u3.cpf
+ 	AND av.nota >= 8)
 
 -- Q10
 
