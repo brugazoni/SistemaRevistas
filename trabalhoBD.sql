@@ -186,6 +186,8 @@
 		--editor
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
 		VALUES('111.333.111-11', 'Maria', 'nois@eu.eu', '1992-08-08', 123456, '', 'só nos compiuter', 0, false, 0);
+	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
+		VALUES('999.333.111-11', 'Benedito', 'ben@edito.eu', '1962-08-08', 123456, '', 'exímio editor', 0, false, 0);
 
 		--administrador
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
@@ -234,6 +236,11 @@
 	INSERT INTO editor (editor, certificacao, especialidade_1, especialidade_2, especialidade_3, n_edicoes)
 		VALUES ('220.200.300-40', 'editor certificado', 'data science', '', 'biologia', 0);
 
+
+		--seu benedito:
+	INSERT INTO editor (editor, certificacao, especialidade_1, especialidade_2, especialidade_3, n_edicoes)
+		VALUES ('999.333.111-11', 'editor certificado', 'energia sustentável', '', '', 0);
+
 --EDICAO
 
 	INSERT INTO edicao (editor, revista)
@@ -255,7 +262,7 @@
 		VALUES('opiniaoboa.com', 'revista opinada', 0, 0);
 
 --ASSINA
-	--joão assina:
+		--joão assina:
 	INSERT INTO assina(usuario, revista)
 		VALUES('111.111.111-11', 'revistashow.com');
 
@@ -273,10 +280,26 @@
 	INSERT INTO assina(usuario, revista)
 		VALUES('211.333.111-11', 'opiniaoboa.com');
 
-
+		--neusa assina:
+	INSERT INTO assina(usuario, revista)
+		VALUES('700.333.111-11', 'revistadaboa.com');
+	INSERT INTO assina(usuario, revista)
+		VALUES('700.333.111-11', 'bomdemais.com');
+	INSERT INTO assina(usuario, revista)
+		VALUES('700.333.111-11', 'opiniaoboa.com');
+			
 --EDICAO
 	INSERT INTO edicao(editor, revista)
 		VALUES('111.333.111-11', 'revistadaboa.com');
+
+	-- seu benedito:
+
+	INSERT INTO edicao(editor, revista)
+		VALUES('999.333.111-11', 'revistadaboa.com');
+	INSERT INTO edicao(editor, revista)
+		VALUES('999.333.111-11', 'bomdemais.com');
+	INSERT INTO edicao(editor, revista)
+		VALUES('999.333.111-11', 'opiniaoboa.com');
 
 --VOLUME
 	INSERT INTO volume (id_volume, revista, data, capa, titulo, n_artigos)
