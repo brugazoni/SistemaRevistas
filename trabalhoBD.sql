@@ -697,6 +697,23 @@ select u.cpf, u.nome, u.data_nasc, u.instituicao
 	select r.revisor from revisor r
 )
 
+--Q7
+
+
+SELECT u.cpf, u.email
+FROM usuario u
+WHERE NOT EXISTS
+	((SELECT r.dominio
+	  FROM revista r
+	  INNER JOIN edicao ed
+	  ON (r.dominio = ed.revista AND ed.editor = '999.333.111-11'))
+
+	  EXCEPT
+
+	  	(SELECT ass.revista
+	  	 FROM assina ass
+	  	 WHERE u.cpf = ass.usuario))
+
 
 
 -- Q10
