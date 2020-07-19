@@ -10,7 +10,7 @@
 			CONSTRAINT ndigitos_senha CHECK (floor(log(abs(senha))+1) BETWEEN 6 AND 15),
 		instituicao varchar(100),
 		descricao varchar(1000),
-		n_avaliacoes integer DEFAULT 0
+		n_avaliacoes integer DEFAULT 0,
 		deletado boolean DEFAULT false,
 		experiencia integer DEFAULT 0
 	);
@@ -27,7 +27,7 @@
 		area1 varchar(100) NOT NULL,
 		area2 varchar(100),
 		area3 varchar(100),
-		n_revisoes integer DEFAULT 0
+		n_revisoes integer DEFAULT 0,
 		PRIMARY KEY (revisor)
 	);
 
@@ -37,7 +37,7 @@
 		especialidade_1 varchar(100) NOT NULL,
 		especialidade_2 varchar(100),
 		especialidade_3 varchar(100),
-		n_edicoes integer DEFAULT 0
+		n_edicoes integer DEFAULT 0,
 		PRIMARY KEY (editor)
 	);
 
@@ -92,7 +92,7 @@
 		titulo varchar(200) NOT NULL,
 		texto varchar(200) NOT NULL,
 		tema varchar(200) NOT NULL,
-		data_submissao date NOT NULL
+		data_submissao date NOT NULL,
 
 		UNIQUE (submissor, data_submissao, titulo)
 	);
@@ -147,14 +147,14 @@
 		nome varchar(200) NOT NULL,
 		arquivo varchar(200) NOT NULL,
 		PRIMARY KEY (anexo, nome)
-	)
+	);
 
 
 	CREATE TABLE utiliza_anexo (
 		anexo integer REFERENCES anexo(id) ON DELETE RESTRICT,
 		artigo integer REFERENCES artigo(id) ON DELETE CASCADE,
 		PRIMARY KEY (anexo, artigo)
-	)
+	);
 
 ----------------------------------------------------------------------------------------
 -- INSERTS
@@ -245,13 +245,6 @@
 	INSERT INTO editor (editor, certificacao, especialidade_1, especialidade_2, especialidade_3, n_edicoes)
 		VALUES ('999.333.111-11', 'editor certificado', 'energia sustentável', '', '', 0);
 
---EDICAO
-
-	INSERT INTO edicao (editor, revista)
-		VALUES ('100.200.300-40', 'revistashow.com');
-	INSERT INTO edicao (editor, revista)
-		VALUES ('220.200.300-40', 'cienciaehjoia.com');
-
 --REVISTA
 	INSERT INTO revista (dominio, nome, n_inscritos, n_volumes)
 		VALUES('revistadaboa.com', 'revista da boa', 0, 0);
@@ -264,6 +257,14 @@
 		VALUES('cienciaehjoia.com', 'ciência é joia', 0, 0);
 	INSERT INTO revista (dominio, nome, n_inscritos, n_volumes)
 		VALUES('opiniaoboa.com', 'revista opinada', 0, 0);
+
+--EDICAO
+
+	INSERT INTO edicao (editor, revista)
+		VALUES ('100.200.300-40', 'revistashow.com');
+	INSERT INTO edicao (editor, revista)
+		VALUES ('220.200.300-40', 'cienciaehjoia.com');
+
 
 --ASSINA
 		--joão assina:
@@ -416,7 +417,7 @@
 			VALUES (3584, '2020-08-22', 1448);
 			--publicados anteriormente
 	INSERT INTO artigo (id, data_publicacao, id_volume)
-			VALUES (3587, '2017-08-22', 1448);
+			VALUES (3585, '2017-08-22', 1448);
 
 
 		--programados para publicação futura
