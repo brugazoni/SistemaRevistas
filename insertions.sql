@@ -3,53 +3,53 @@
 -- USUÁRIOS
 		--usuário sem especializações
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('111.111.111-11', 'João', 'eu@eu.eu', '1992-12-04', 123456, 'usp', 'quem se define se 	limita sdv', 0, false, 0);
+		VALUES('111.111.111-11', 'João', 'eu@eu.eu', '1992-12-04', '123456', 'usp', 'quem se define se 	limita sdv', 0, false, 0);
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('211.111.111-11', 'Ariel', 'vc@eu.eu', '1992-12-04', 123456, 'usp', 'slk tio', 0, false, 0);
+		VALUES('211.111.111-11', 'Ariel', 'vc@eu.eu', '1992-12-04', '123456', 'usp', 'slk tio', 0, false, 0);
 
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('211.222.111-11', 'Joana', 'jo@ana.eu', '1993-12-04', 123456, 'unicamps', 'leia o livro', 0, false, 0);
+		VALUES('211.222.111-11', 'Joana', 'jo@ana.eu', '1993-12-04', '123456', 'unicamps', 'leia o livro', 0, false, 0);
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('211.333.111-11', 'Salomão', 'salo@mao.vc', '1999-12-08', 123456, '', 'lendo o livro', 0, false, 0);
+		VALUES('211.333.111-11', 'Salomão', 'salo@mao.vc', '1999-12-08', '123456', '', 'lendo o livro', 0, false, 0);
 
 		--deletados
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('999.222.111-11', 'Sumiu', 'su@miu.eu', '1990-12-04', 123456, '', 'leia o livro', 0, true, 0);
+		VALUES('999.222.111-11', 'Sumiu', 'su@miu.eu', '1990-12-04', '123456', '', 'leia o livro', 0, true, 0);
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('888.222.111-11', 'Vazou', 'va@zou.eu', '1991-12-04', 123456, 'ufscar', 'leia o livro', 0, true, 0);
+		VALUES('888.222.111-11', 'Vazou', 'va@zou.eu', '1991-12-04', '123456', 'ufscar', 'leia o livro', 0, true, 0);
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('777.222.111-11', 'Cadê', 'ca@dê.eu', '1998-12-04', 123456, 'unesp', 'leia o livro', 0, true, 0);
+		VALUES('777.222.111-11', 'Cadê', 'ca@dê.eu', '1998-12-04', '123456', 'unesp', 'leia o livro', 0, true, 0);
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('666.222.111-11', 'Feznada', 'fez@na.da', '1998-12-04', 123456, 'unesp', 'leia o livro', 0, true, 0);
+		VALUES('666.222.111-11', 'Feznada', 'fez@na.da', '1998-12-04', '123456', 'unesp', 'leia o livro', 0, true, 0);
 
 		--revisor
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('321.111.111-11', 'Carlos', 'oi@eu.eu', '1982-11-04', 123456, 'unesp', 'bem chato', 0, false, 0);
+		VALUES('321.111.111-11', 'Carlos', 'oi@eu.eu', '1982-11-04', '123456', 'unesp', 'bem chato', 0, false, 0);
 
 		--editor
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('111.333.111-11', 'Maria', 'nois@eu.eu', '1992-08-08', 123456, '', 'só nos compiuter', 0, false, 0);
+		VALUES('111.333.111-11', 'Maria', 'nois@eu.eu', '1992-08-08', '123456', '', 'só nos compiuter', 0, false, 0);
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('999.333.111-11', 'Benedito', 'ben@edito.eu', '1962-08-08', 123456, '', 'exímio editor', 0, false, 0);
+		VALUES('999.333.111-11', 'Benedito', 'ben@edito.eu', '1962-08-08', '123456', '', 'exímio editor', 0, false, 0);
 
 		--administrador
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('144.333.111-11', 'Ângela', 'nois@eu.nois', '1992-05-08', 123456, '', 'sei administrar bolo e revista e acabou meu bolo, então', 0, false, 0);
+		VALUES('144.333.111-11', 'Ângela', 'nois@eu.nois', '1992-05-08', '123456', '', 'sei administrar bolo e revista e acabou meu bolo, então', 0, false, 0);
 
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('554.333.111-11', 'Carlos', 'car@los.nois', '1972-05-08', 123456, '', 'admin ai de mim', 0, false, 0);
+		VALUES('554.333.111-11', 'Carlos', 'car@los.nois', '1972-05-08', '123456', '', 'admin ai de mim', 0, false, 0);
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('700.333.111-11', 'Neusa', 'neu@sa.nois', '1982-02-18', 123456, 'puc', 'era isso ou fazer flogaum', 0, false, 0);
+		VALUES('700.333.111-11', 'Neusa', 'neu@sa.nois', '1982-02-18', '123456', 'puc', 'era isso ou fazer flogaum', 0, false, 0);
 
 			--bioagradáveis
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('100.200.300-40', 'Bio', 'bio@logo.nois', '1988-02-18', 123456, 'puc', 'fitoterapeuta', 0, false, 0);
+		VALUES('100.200.300-40', 'Bio', 'bio@logo.nois', '1988-02-18', '123456', 'puc', 'fitoterapeuta', 0, false, 0);
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('110.200.300-40', 'Leite', 'lo@gia.nois', '1978-02-18', 123456, 'unicamps', 'etnobotânico', 0, false, 0);
+		VALUES('110.200.300-40', 'Leite', 'lo@gia.nois', '1978-02-18', '123456', 'unicamps', 'etnobotânico', 0, false, 0);
 		
 			--esse não vai ter artigo publicado e não pode aparecer na Q5
 	INSERT INTO usuario(cpf, nome, email, data_nasc, senha, instituicao, descricao, n_avaliacoes, deletado, experiencia)
-		VALUES('220.200.300-40', 'Ólogo', 'o@logo.nois', '1999-03-18', 123456, 'ufscar', 'micologista', 0, false, 0);
+		VALUES('220.200.300-40', 'Ólogo', 'o@logo.nois', '1999-03-18', '123456', 'ufscar', 'micologista', 0, false, 0);
 
 --SEGUE
 	INSERT INTO segue(usuario, seguido)
