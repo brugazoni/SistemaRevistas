@@ -6,8 +6,8 @@
 		email varchar(100) NOT NULL,
 			CONSTRAINT formato_email CHECK (email LIKE '%@%'),
 		data_nasc date NOT NULL,
-		senha integer NOT NULL
-			CONSTRAINT ndigitos_senha CHECK (floor(log(abs(senha))+1) BETWEEN 6 AND 15),
+		senha varchar(16) NOT NULL
+			CONSTRAINT ndigitos_senha CHECK len(senha) BETWEEN 6 AND 15),
 		instituicao varchar(100),
 		descricao varchar(1000),
 		n_avaliacoes integer DEFAULT 0,
