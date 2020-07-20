@@ -1,3 +1,4 @@
+
 -- TABLES
 	CREATE TABLE usuario(
 		cpf varchar(14) PRIMARY KEY
@@ -6,8 +7,8 @@
 		email varchar(100) NOT NULL,
 			CONSTRAINT formato_email CHECK (email LIKE '%@%'),
 		data_nasc date NOT NULL,
-		senha varchar(16) NOT NULL
-			CONSTRAINT ndigitos_senha CHECK len(senha) BETWEEN 6 AND 15),
+		senha integer NOT NULL
+			CONSTRAINT ndigitos_senha CHECK (floor(log(abs(senha))+1) BETWEEN 6 AND 15),
 		instituicao varchar(100),
 		descricao varchar(1000),
 		n_avaliacoes integer DEFAULT 0,
@@ -497,7 +498,7 @@
 	INSERT INTO avaliacao_artigo (id_artigo, usuario, datahora, nota, comentario)
 		VALUES (3551, '111.111.111-11', current_timestamp, 9.5, '/comentarios/parabensmerecido.txt');
 	INSERT INTO avaliacao_artigo (id_artigo, usuario, datahora, nota, comentario)
-		VALUES (5000, '100-200-300-40', current_timestamp, 9, '/comentarios/parabensmuitoshowcomp.txt');
+		VALUES (5000, '100.200.300-40', current_timestamp, 9, '/comentarios/parabensmuitoshowcomp.txt');
 
 --ANEXO
 	INSERT INTO anexo (id, cabecalho, visibilidade, data, dono)
@@ -584,7 +585,7 @@ SELECT r.dominio, u.cpf, u.nome, u.email, p.tema
 	INNER JOIN administra ad
 	ON (ad.revista = r.dominio)
 	INNER JOIN usuario u
-	ON (ad.usuario = u.cpf)
+	ON (ad.usuario = u.cpf);
 
 --Q3:
 
@@ -632,7 +633,7 @@ UNION
 	INNER JOIN cita c
 	ON c.artigo_citado = p_citado.id_artigo
 	INNER JOIN artigo_prototipo p_cita
-	ON c.artigo = p_cita.id_artigo
+	ON c.artigo = p_cita.id_artigo;
 
 
 --Q5
@@ -722,7 +723,7 @@ select u.cpf, u.nome, u.data_nasc, u.instituicao
 	select e.editor from editor e 
 		union
 	select r.revisor from revisor r
-)
+);
 
 --Q7
 -- Query baseada na operação de divisão entre conjuntos: partimos da ideia de que
@@ -742,7 +743,7 @@ WHERE NOT EXISTS
 	  	( -- Segunda subquery: seleciona todos os usuários que assinam revistas
 	  	 SELECT ass.revista
 	  	 FROM assina ass
-	  	 WHERE u.cpf = ass.usuario))
+	  	 WHERE u.cpf = ass.usuario));
 --Q8 
 
 -- Sugere revistas que um usuário ainda não conhece com base em suas avaliações de artigos.
@@ -789,7 +790,7 @@ ON p.id_artigo = a.id AND p.tema IN
 	ON u3.cpf LIKE '100.200.300-40'
 	INNER JOIN avaliacao_artigo av
 	ON p2.id_artigo = av.id_artigo AND av.usuario = u3.cpf
- 	AND av.nota >= 8)
+ 	AND av.nota >= 8);
 
 -- Q10
 
@@ -811,6 +812,5 @@ ON p.id_artigo = a.id AND p.tema IN
 	group by r.dominio
 	having count(case 
 				 when e.imagem_editorial is not null and e.imagem_editorial <> ''
-					then 1 end)>0 
-
+					then 1 end)>0 ;
 
