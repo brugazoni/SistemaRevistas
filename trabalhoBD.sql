@@ -792,6 +792,25 @@ ON p.id_artigo = a.id AND p.tema IN
 	ON p2.id_artigo = av.id_artigo AND av.usuario = u3.cpf
  	AND av.nota >= 8);
 
+--Q9
+--Mostra, para todo volume na base de dados, o título do volume,
+--nome da revista, número de artigos no volume, titulo de cada artigo no volume, nota média das avaliações
+--de cada artigo e a soma de número de citações dele.
+
+SELECT v.titulo, r.nome, v.n_artigos, COUNT(c.artigo_citado) as citacoes_totais, p.titulo as artigo, AVG(av.nota) as media_artigo
+	FROM volume v
+	LEFT JOIN revista r
+	ON v.revista = r.dominio
+	LEFT JOIN artigo a
+	ON a.id_volume = v.id_volume
+	LEFT JOIN cita c
+	ON c.artigo_citado = a.id
+	LEFT JOIN artigo_prototipo p
+	ON a.id = p.id_artigo
+	LEFT JOIN avaliacao_artigo av
+	ON a.id = av.id_artigo
+	GROUP BY v.titulo, av.nota, p.titulo, c.artigo_citado, r.nome, v.n_artigos;
+
 -- Q10
 
 --
