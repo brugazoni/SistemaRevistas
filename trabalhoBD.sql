@@ -496,6 +496,8 @@
 --AVALIACAO_ARTIGO
 	INSERT INTO avaliacao_artigo (id_artigo, usuario, datahora, nota, comentario)
 		VALUES (3551, '111.111.111-11', current_timestamp, 9.5, '/comentarios/parabensmerecido.txt');
+	INSERT INTO avaliacao_artigo (id_artigo, usuario, datahora, nota, comentario)
+		VALUES (5000, '100-200-300-40', current_timestamp, 9, '/comentarios/parabensmuitoshowcomp.txt');
 
 --ANEXO
 	INSERT INTO anexo (id, cabecalho, visibilidade, data, dono)
