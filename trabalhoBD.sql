@@ -758,6 +758,9 @@ SELECT u.cpf, u.nome, u.email, r.dominio, p.tema
 FROM usuario u
 INNER JOIN revista r
 ON u.cpf LIKE '100.200.300-40' AND r.dominio NOT IN
+	--Essa subquery seleciona todas as revistas que o usuário conhece, ou seja,
+	-- interagiu com, ou assinando, administrando, editando, submetendo artigos ou revisando artigos.
+	-- Isso para que as revistas da query principal sejam filtradas devidamente.
 	(SELECT r2.dominio
 	FROM revista r2
 	INNER JOIN usuario u2
@@ -784,6 +787,8 @@ INNER JOIN artigo a
 ON a.id_volume = v.id_volume
 INNER JOIN artigo_prototipo p
 ON p.id_artigo = a.id AND p.tema IN
+	--Nesta subquery são selecionados todos os temas de artigos que o usuário em questão já avaliou e deu nota maior ou igual a 8,
+	-- para que a query principal identifique os artigos que contenham esse tema para seleção.
 	(SELECT p2.tema
 	FROM artigo_prototipo p2
 	INNER JOIN usuario u3
