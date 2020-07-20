@@ -818,15 +818,17 @@ SELECT v.titulo, r.nome, v.n_artigos, COUNT(c.artigo_citado) as citacoes_totais,
 
 -- Q10
 
---
 	---------------------
-	--1 - SELECIONA TODAS AS REVISTA QUE JÁ PUBLICARAM AO MENOS UMA IMAGEM NO EDITORIAL. Ou seja,
-	--pelo menos um dos editoriais deve conter uma imagem não nula ou não vazia. (FEITO)
-	--Depois eu tenho que pegar o complementar disso pra conseguir todas as revistas que nunca publicaram nenhuma imagem
-	--
-	--2 - depois eu ainda tenho que pegar as revistas que não publicaram um editorial com imagem nos últimos 6 meses e dar um
-	-- union com o resultado do (1)
-
+	--Selecionamos todas as revistas e informações de seus administradores que nunca publicaram
+	-- uma imagem em seu editorial. Para isso, selecionamos todas as revistas que publicaram 
+	-- ao menos uma imagem em seus editoriais, e obtemos o conjunto complementar.
+	select r.dominio, u.nome, u.cpf, u.email
+	from usuario u 
+	inner join administra a
+	on (a.usuario = u.cpf)
+	inner join revista r
+	on (a.revista = r.dominio) and
+	r.dominio not in(
 	select r.dominio
 	from revista r
 	inner join volume v
@@ -835,6 +837,7 @@ SELECT v.titulo, r.nome, v.n_artigos, COUNT(c.artigo_citado) as citacoes_totais,
 	on (v.id_volume = e.volume)
 	group by r.dominio
 	having count(case 
-				 when e.imagem_editorial is not null and e.imagem_editorial <> ''
-					then 1 end)>0 ;
+				when e.imagem_editorial is not null and e.imagem_editorial <> ''
+					then 1 end)>0 
+	)
 
